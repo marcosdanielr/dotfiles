@@ -8,6 +8,8 @@ M.general = {
     ["<C-P>"] = { ":Telescope live_grep<CR>", "" },
     ["<C-A>"] = { ":Telescope find_files<CR>", "" },
     ["<leader>sr"] = { ":lua require('ssr').open()<CR>", "" },
+    ["<A-j>"] = { ":m .+1<CR>==", " ", opts = { nowait = true } },
+    ["<A-k>"] = { ":m .-2<CR>==", " ", opts = { nowait = true } },
   },
   v = {
     [">"] = { ">gv", "indent"},
