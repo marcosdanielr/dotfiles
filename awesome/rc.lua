@@ -71,51 +71,7 @@ local altkey = "Mod1"
 awful.layout.layouts = {
 	awful.layout.suit.tile,
 	awful.layout.suit.floating,
-	-- awful.layout.suit.tile.left,
-	-- awful.layout.suit.tile.bottom,
-	-- awful.layout.suit.tile.top,
-	-- awful.layout.suit.fair,
-	-- awful.layout.suit.fair.horizontal,
-	-- awful.layout.suit.spiral,
-	-- awful.layout.suit.spiral.dwindle,
-	-- awful.layout.suit.max,
-	-- awful.layout.suit.max.fullscreen,
-	-- awful.layout.suit.magnifier,
-	-- awful.layout.suit.corner.nw,
-	-- awful.layout.suit.corner.ne,
-	-- awful.layout.suit.corner.sw,
-	-- awful.layout.suit.corner.se,
 }
--- }}}
-
--- {{{ Menu
--- Create a launcher widget and a main menu
--- myawesomemenu = {
--- 	{
--- 		"hotkeys",
--- 		function()
--- 			hotkeys_popup.show_help(nil, awful.screen.focused())
--- 		end,
--- 	},
--- 	{ "manual", terminal .. " -e man awesome" },
--- 	{ "edit config", editor_cmd .. " " .. awesome.conffile },
--- 	{ "restart", awesome.restart },
--- 	{
--- 		"quit",
--- 		function()
--- 			awesome.quit()
--- 		end,
--- 	},
--- }
-
--- mymainmenu = awful.menu({
--- 	items = { { "awesome", myawesomemenu, beautiful.awesome_icon }, { "open terminal", terminal } },
--- })
-
--- mylauncher = awful.widget.launcher({
--- 	image = beautiful.awesome_icon,
--- 	menu = mymainmenu,
--- })
 
 -- Menubar configuration
 menubar.utils.terminal = terminal -- Set the terminal for applications that require it
@@ -171,25 +127,7 @@ local tasklist_buttons = gears.table.join(
 	end)
 )
 
-local function set_wallpaper(s)
-	-- Wallpaper
-	if beautiful.wallpaper then
-		local wallpaper = beautiful.wallpaper
-		-- If wallpaper is a function, call it with the screen
-		if type(wallpaper) == "function" then
-			wallpaper = wallpaper(s)
-		end
-		gears.wallpaper.maximized(wallpaper, s, true)
-	end
-end
-
--- Re-set wallpaper when a screen's geometry changes (e.g. different resolution)
-screen.connect_signal("property::geometry", set_wallpaper)
-
 awful.screen.connect_for_each_screen(function(s)
-	-- Wallpaper
-	set_wallpaper(s)
-
 	-- Each screen has its own tag table.
 	awful.tag({ "1", "2", "3", "4", "5", "6", "7", "8", "9" }, s, awful.layout.layouts[1])
 
@@ -248,14 +186,6 @@ awful.screen.connect_for_each_screen(function(s)
 		},
 	})
 end)
--- }}}
-
--- {{{ Mouse bindings
--- root.buttons(gears.table.join(
---     awful.button({ }, 3, function () mymainmenu:toggle() end),
---     awful.button({ }, 4, awful.tag.viewnext),
---     awful.button({ }, 5, awful.tag.viewprev)
--- ))
 -- }}}
 
 -- {{{ Key bindings
@@ -356,63 +286,12 @@ globalkeys = gears.table.join(
 		end
 	end, { description = "restore minimized", group = "client" }),
 
-	--                               awful.key({altkey, "Control"}, "esc", function()
-	--     awful.util.spawn("xkill")
-	-- end, {description = "kill a task", group = "menu"}),
-
-	-- awful.util.spawn("rofi -show drun -show-icons") end,
-	--           {description = "launch rofi", group = "menu"}),
-	-- awful.key({ modkey },            "c",     function ()
-	-- awful.screen.focused().mypromptbox:run() changed per dmenu/rofi
-	-- Custom
-	--                               awful.key({modkey}, "r", function()
-	--     awful.util.spawn("rofi -show drun -show-icons")
-	-- end, {description = "launch rofi", group = "menu"}),
-	-- awful.key({ modkey },            "c",     function ()
-	-- awful.util.spawn("codium") end,
-	--             {description = "launch VSCodium", group = "makc"}),
-	-- awful.key({ modkey },            "v",     function ()
-	-- awful.util.spawn("chromium") end,
-	--             {description = "launch Chromium", group = "makc"}),
 	awful.key({}, "Print", function()
 		awful.util.spawn("flameshot gui")
 	end, { description = "print", group = "makc" }),
 	awful.key({ modkey }, "Escape", function()
 		awful.util.spawn("xkill")
 	end, { description = "Kill a task", group = "menu" }), -- Default
-	-- awful.key({ modkey }, "x",
-	--           function ()
-	--               awful.prompt.run {
-	--                 prompt       = "Run Lua code: ",
-	--                 textbox      = awful.screen.focused().mypromptbox.widget,
-	--                 exe_callback = awful.util.eval,
-	--                 history_path = awful.util.get_cache_dir() .. "/history_eval"
-	--               }
-	--           end,
-	--           {description = "lua execute prompt", group = "awesome"}),
-	-- ALSA volume control
-	-- awful.key({}, "XF86AudioRaiseVolume", function()
-	-- 	os.execute(string.format("amixer -q set %s 5%%+", beautiful.volume.channel))
-	-- 	beautiful.volume.update()
-	-- end), -- awful.key({ modkey1 }, "Down",
-	-- awful.key({}, "XF86AudioLowerVolume", function()
-	-- 	os.execute(string.format("amixer -q set %s 5%%-", beautiful.volume.channel))
-	-- 	beautiful.volume.update()
-	-- end),
-	-- awful.key({}, "XF86AudioMute", function()
-	-- 	os.execute(string.format("amixer -q set %s toggle", beautiful.volume.togglechannel or beautiful.volume.channel))
-	-- 	beautiful.volume.update()
-	-- end),
-
-	-- awful.key({}, "XF86AudioRaiseVolume", function()
-	-- 	awful.util.spawn("amixer set Master 2%+")
-	-- end),
-	-- awful.key({}, "XF86AudioLowerVolume", function()
-	-- 	awful.util.spawn("amixer set Master 2%-")
-	-- end),
-	-- awful.key({}, "XF86AudioMute", function()
-	-- 	awful.util.spawn("amixer set Master toggle")
-	-- end),
 
 	awful.key({}, "XF86AudioRaiseVolume", function()
 		awful.util.spawn("pactl set-sink-volume 0 +5%", false)
@@ -423,9 +302,6 @@ globalkeys = gears.table.join(
 	awful.key({}, "XF86AudioMute", function()
 		awful.util.spawn("pactl set-sink-mute 0 toggle", false)
 	end),
-
-	-- Menubar
-	-- menubar.show() function changed per util.spawn("rofi")
 
 	awful.key({ modkey }, "r", function()
 		menubar.show()
@@ -600,12 +476,7 @@ awful.rules.rules = {
 		rule_any = { type = { "normal", "dialog" } },
 		properties = { titlebars_enabled = false },
 	},
-
-	-- Set Firefox to always map on the tag named "2" on screen 1.
-	-- { rule = { class = "Firefox" },
-	--   properties = { screen = 1, tag = "2" } },
 }
--- }}}
 
 -- {{{ Signals
 -- Signal function to execute when a new client appears.
@@ -675,7 +546,6 @@ beautiful.border_focus = "#967e6b"
 -- Autostart
 awful.spawn.with_shell("xrandr --output HDMI-A-0 --primary --left-of DisplayPort-0")
 awful.spawn.with_shell("xset r rate 200 30")
+awful.spawn.with_shell('setxkbmap -layout "us,br" -option "grp:alt_space_toggle"')
 awful.spawn.with_shell("redshift -O 4000")
--- awful.spawn.with_shell("dropbox")
--- awful.spawn.with_shell("~/.config/polybar/launch.sh --forest")
 awful.spawn.with_shell("nitrogen --restore")
