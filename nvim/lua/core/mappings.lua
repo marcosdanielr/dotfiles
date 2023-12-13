@@ -16,6 +16,9 @@ M.general = {
   },
 
   n = {
+    ["A-j"] = { "<cmd> :m .+1<CR>==", "move line up" },
+    ["A-k"] = { "<cmd> :m .-2<CR>==", "move line down" },
+
     ["<Esc>"] = { ":noh <CR>", "Clear highlights" },
     -- switch between windows
     ["<C-h>"] = { "<C-w>h", "Window left" },
@@ -30,7 +33,7 @@ M.general = {
     ["<C-c>"] = { "<cmd> %y+ <CR>", "Copy whole file" },
 
     -- line numbers
-    ["<leader>n"] = { "<cmd> set nu! <CR>", "Toggle line number" },
+    ["<leader>n"] = { "<cmd> set nu! <CR>", "ToNNle line number" },
     ["<leader>rn"] = { "<cmd> set rnu! <CR>", "Toggle relative number" },
 
     -- Allow moving the cursor through wrapped lines with j, k, <Up> and <Down>
